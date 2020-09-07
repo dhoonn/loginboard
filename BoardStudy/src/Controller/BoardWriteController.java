@@ -6,29 +6,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import Service.BoardLoginService;
+import Service.BoardWriteService;
 
-@WebServlet("/boardlogin")
-public class BoardLoginController extends HttpServlet {
+@WebServlet("/boardwrite")
+public class BoardWriteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public BoardLoginController() {
+    public BoardWriteController() {
         super();
     }
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	request.setCharacterEncoding("UTF-8");
-    	BoardLoginService bloginService = new BoardLoginService();
-    	String loginId = bloginService.boardLogin(request, response);
-
-    	HttpSession session = request.getSession();
-    	if(loginId != null) {
-    		session.setAttribute("loginId", loginId);
-    		response.sendRedirect("boardlistpaging");
+    	BoardWriteService bWriteService = new BoardWriteService();
+    	int writeResult = bWriteService.boardwrite(request, response);
+    	if(writeResult>0) {
+    		response.sendRedirect("BoardWriteSuccess.jsp");
     	}else {
-    		response.sendRedirect("BoardLoginFail.jsp");
+    		response.sendRedirect("BoardWriteFail.jsp");
     	}
     }
     

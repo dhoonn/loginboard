@@ -6,30 +6,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import Service.BoardLoginService;
+import Service.BoardUpdateProcessService;
 
-@WebServlet("/boardlogin")
-public class BoardLoginController extends HttpServlet {
+@WebServlet("/boardupdateprocess")
+public class BoardUpdateProcessController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public BoardLoginController() {
+    public BoardUpdateProcessController() {
         super();
     }
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	request.setCharacterEncoding("UTF-8");
-    	BoardLoginService bloginService = new BoardLoginService();
-    	String loginId = bloginService.boardLogin(request, response);
-
-    	HttpSession session = request.getSession();
-    	if(loginId != null) {
-    		session.setAttribute("loginId", loginId);
-    		response.sendRedirect("boardlistpaging");
+    	BoardUpdateProcessService bupdateService = new BoardUpdateProcessService();
+    	int boardUpdateProcess = bupdateService.boardUpdateProcess(request, response);
+    	if(boardUpdateProcess>0) {
+    		response.sendRedirect("BoardUpdateSuccess.jsp");
     	}else {
-    		response.sendRedirect("BoardLoginFail.jsp");
-    	}
+			response.sendRedirect("BoardUpdateFail.jsp");
+		}
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

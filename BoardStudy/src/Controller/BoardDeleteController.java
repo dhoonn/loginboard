@@ -6,29 +6,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import Service.BoardLoginService;
+import Service.BoardDeleteService;
 
-@WebServlet("/boardlogin")
-public class BoardLoginController extends HttpServlet {
+@WebServlet("/boarddelete")
+public class BoardDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public BoardLoginController() {
+    public BoardDeleteController() {
         super();
     }
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	request.setCharacterEncoding("UTF-8");
-    	BoardLoginService bloginService = new BoardLoginService();
-    	String loginId = bloginService.boardLogin(request, response);
-
-    	HttpSession session = request.getSession();
-    	if(loginId != null) {
-    		session.setAttribute("loginId", loginId);
-    		response.sendRedirect("boardlistpaging");
+    	BoardDeleteService bdeleteService = new BoardDeleteService();
+    	int deleteResult = bdeleteService.boardDelete(request, response);
+    	if(deleteResult>0) {
+    		response.sendRedirect("BoardDeleteSuccess.jsp");
     	}else {
-    		response.sendRedirect("BoardLoginFail.jsp");
+    		response.sendRedirect("BoardDeleteFail.jsp");
     	}
     }
     

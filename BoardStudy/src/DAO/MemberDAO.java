@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import DB.DBConnection;
+import DTO.BoardDTO;
 import DTO.MemberDTO;
 
 public class MemberDAO {
@@ -86,6 +87,47 @@ public class MemberDAO {
 			pstmtClose();
 		}
 		return loginresult;
+	}
+
+	public MemberDTO memberUpdate(String mid) {
+		String sql = "SELECT * FROM MEMBER1 WHERE MID=?";
+		MemberDTO memberUpdate = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				memberUpdate = new MemberDTO();
+				memberUpdate.setMid(rs.getString("MID"));
+				memberUpdate.setMpassword(rs.getString("MPASSWORD"));
+				memberUpdate.setMname(rs.getString("MNAME"));
+				memberUpdate.setMbirth(rs.getString("MBIRTH"));
+				memberUpdate.setMemail(rs.getString("MEMAIL"));
+				memberUpdate.setMaddress(rs.getString("MADDRESS"));
+				memberUpdate.setMphone(rs.getString("MPHONE"));
+				memberUpdate.setMprofile(rs.getString("MPROFILE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			pstmtClose();
+			rsClose();
+		}
+		return memberUpdate;
+	}
+
+	public int boardMUpdateProcess(MemberDTO memberUpdateProcess) {
+		String sql = "UPDATE MEMBER1 SET MNAME=?, MBIRTH=?, MEMAIL=?, MADDRESS=?, MPHONE=?, MPROFILE=? WHERE MID=?";
+		int processResult = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, memberUpdateProcess.getMname());
+			pstmt.setString(2, memberUpdateProcess.getMbirth());
+			pstmt.setString(3, memberUpdateProcess.getMemail());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 
