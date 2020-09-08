@@ -205,4 +205,58 @@ public class BoardDAO {
 		
 		return deleteResult;
 	}
+
+	public List<BoardDTO> boardSort() {
+		String sql = "SELECT * FROM BOARD1 ORDER BY BHITS DESC";
+		List<BoardDTO> boardList = new ArrayList<BoardDTO>();
+		BoardDTO board = null;
+		try {
+			pstmt=con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				board = new BoardDTO();
+				board.setBnumber(rs.getInt("BNUMBER"));
+				board.setBwriter(rs.getString("BWRITER"));
+				board.setBtitle(rs.getString("BTITLE"));
+				board.setBcontents(rs.getString("BCONTENTS"));
+				board.setBdate(rs.getDate("BDATE"));
+				board.setBhits(rs.getInt("BHITS"));
+				board.setBfilename(rs.getString("BFILENAME"));
+				boardList.add(board);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			pstmtClose();
+			rsClose();
+		}
+		return boardList;
+	}
+
+	public List<BoardDTO> boardSearch(String keyword) {
+		String sql = "SELECT * FROM BOARD1 WHERE BTITLE LIKE ?";
+		List<BoardDTO> boardList = new ArrayList<BoardDTO>();
+		BoardDTO board = null;
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, '%'+keyword+'%');
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				board = new BoardDTO();
+				board.setBnumber(rs.getInt("BNUMBER"));
+				board.setBwriter(rs.getString("BWRITER"));
+				board.setBtitle(rs.getString("BTITLE"));
+				board.setBcontents(rs.getString("BCONTENTS"));
+				board.setBdate(rs.getDate("BDATE"));
+				board.setBhits(rs.getInt("BHITS"));
+				boardList.add(board);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			pstmtClose();
+			rsClose();
+		}
+		return boardList;
+	}
 }

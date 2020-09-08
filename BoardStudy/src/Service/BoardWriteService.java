@@ -28,7 +28,7 @@ public class BoardWriteService {
 		bDAO.dbClose();
 		
 		
-		return writeResult;
+		return writeResult; 
 	}
 
 }

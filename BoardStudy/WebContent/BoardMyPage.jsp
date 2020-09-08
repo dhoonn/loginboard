@@ -10,10 +10,11 @@ function move(){
 	location.href="boardlistpaging";
 	}
 function update(){
-	location.href="memberupdate?mid="+${memberView.mid};
+	//location.href="memberupdate?mid="+${memberView.mid};
+	location.href="memberupdate?mid=${sessionScope.loginId}";
 	}
 function memberdelete(){
-	location.href="memberdelete?mid="+${memberView.mid};
+	location.href="memberdelete?mid=${sessionScope.loginId}";
 	}
 </script>
 </head>

@@ -14,13 +14,9 @@ import DTO.MemberDTO;
 public class BoardMUpdateProcessService {
 
 	public int boardMUpdateProcess(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String savePath = "D:\\JAVA\\WorkSpace\\eclipse\\BoardStudy\\WebContent\\UploadFile";
+		String savePath = "C:\\Users\\이동훈\\git\\loginboard\\BoardStudy\\WebContent\\UploadFile";
 
-		MultipartRequest multi = new MultipartRequest(
-				request, 
-				savePath, 
-				10 * 1024 * 1024, 
-				"UTF-8",
+		MultipartRequest multi = new MultipartRequest(request, savePath, 10 * 1024 * 1024, "UTF-8",
 				new DefaultFileRenamePolicy());
 		String mid = multi.getParameter("mid");
 		String mpassword = multi.getParameter("mpassword");

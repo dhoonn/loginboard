@@ -6,31 +6,27 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import Service.BoardLoginService;
+import Service.BoardMDeleteProcessService;
+import Service.BoardMUpdateProcessService;
 
-@WebServlet("/boardlogin")
-public class BoardLoginController extends HttpServlet {
+@WebServlet("/memberdeleteprocess")
+public class BoardMDeleteProcessController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public BoardLoginController() {
+    public BoardMDeleteProcessController() {
         super();
     }
-
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	request.setCharacterEncoding("UTF-8");
-    	BoardLoginService bloginService = new BoardLoginService();
-    	String loginId = bloginService.boardLogin(request, response);
-    	HttpSession session = request.getSession();
-    	if(loginId != null) {
-    		session.setAttribute("loginId", loginId);
-    		response.sendRedirect("boardlistpaging");
+    	BoardMDeleteProcessService bmdeleteService = new BoardMDeleteProcessService();
+    	int boardMDeleteProcess = bmdeleteService.boardMDeleteProcess(request, response);
+    	if(boardMDeleteProcess>0) {
+    		response.sendRedirect("BoardMDeleteSuccess.jsp");
     	}else {
-    		response.sendRedirect("BoardLoginFail.jsp");
-    	}
+			response.sendRedirect("BoardMDeleteFail.jsp");
+		}
     }
-    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);
 	}

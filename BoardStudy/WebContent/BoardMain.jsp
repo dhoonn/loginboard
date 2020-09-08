@@ -6,6 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+function search(){
+	var keyword = document.getElementById("keyword").value;
+	location.href="boardsearch?keyword="+keyword;
+}
+</script>
 </head>
 <body>
 <h2>BoardMain.jsp</h2>
@@ -17,7 +23,11 @@
 	<a href="memberlist">관리자모드(회원목록)</a><br>
 	</c:if>
 	 --%>
-	<a href="mypage">마이페이지</a>
+	 <input type="text" id="keyword" placeholder="검색어 입력">
+	<button onclick="search()">검색</button>
+	<button onclick="location.href='memberview?mid=${sessionScope.loginId}'">마이페이지</button>
+	<button onclick="location.href='logout'">로그아웃</button> 
+	
 	<table border="1">
 		<tr>
 			<td>글번호</td>
@@ -37,6 +47,9 @@
 		</c:forEach>
 		<tr>
 			<td colspan="5"><button onclick="location.href='BoardWrite.jsp'">글쓰기</button> </td>
+		</tr>
+		<tr>
+			<td colspan="5"><button onclick="location.href='boardsort'">인기글보기</button> </td>
 		</tr>
 	</table>
 

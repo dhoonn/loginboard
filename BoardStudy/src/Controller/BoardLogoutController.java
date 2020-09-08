@@ -8,27 +8,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Service.BoardLoginService;
-
-@WebServlet("/boardlogin")
-public class BoardLoginController extends HttpServlet {
+@WebServlet("/logout")
+public class BoardLogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public BoardLoginController() {
+    public BoardLogoutController() {
         super();
     }
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	request.setCharacterEncoding("UTF-8");
-    	BoardLoginService bloginService = new BoardLoginService();
-    	String loginId = bloginService.boardLogin(request, response);
     	HttpSession session = request.getSession();
-    	if(loginId != null) {
-    		session.setAttribute("loginId", loginId);
-    		response.sendRedirect("boardlistpaging");
-    	}else {
-    		response.sendRedirect("BoardLoginFail.jsp");
-    	}
+    	
+    	//세션에 저장된 특정 파라미터만 삭제
+    	session.removeAttribute("loginId");
+    	
+    	//로그아웃 수행 후 로그인 페이지로 이동
+    	response.sendRedirect("BoardLogin.jsp");
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

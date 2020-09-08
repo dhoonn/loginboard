@@ -124,10 +124,60 @@ public class MemberDAO {
 			pstmt.setString(1, memberUpdateProcess.getMname());
 			pstmt.setString(2, memberUpdateProcess.getMbirth());
 			pstmt.setString(3, memberUpdateProcess.getMemail());
+			pstmt.setString(4, memberUpdateProcess.getMaddress());
+			pstmt.setString(5, memberUpdateProcess.getMphone());
+			pstmt.setString(6, memberUpdateProcess.getMprofile());
+			pstmt.setString(7, memberUpdateProcess.getMid());
+			processResult = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			pstmtClose();
 		}
-		return 0;
+		return processResult;
+	}
+
+	public MemberDTO memberView(String mid) {
+		String sql = "SELECT * FROM MEMBER1 WHERE MID=?";
+		MemberDTO memberView = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				memberView = new MemberDTO();
+				memberView.setMid(rs.getString("MID"));
+				memberView.setMpassword(rs.getString("MPASSWORD"));
+				memberView.setMname(rs.getString("MNAME"));
+				memberView.setMbirth(rs.getString("MBIRTH"));
+				memberView.setMemail(rs.getString("MEMAIL"));
+				memberView.setMaddress(rs.getString("MADDRESS"));
+				memberView.setMphone(rs.getString("MPHONE"));
+				memberView.setMprofile(rs.getString("MPROFILE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			pstmtClose();
+			rsClose();
+		}
+		return memberView;
+	}
+
+	public int memberDelete(String mid) {
+		String sql = "DELETE FROM MEMBER1 WHERE MID=?";
+		int deleteResult = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			deleteResult = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			pstmtClose();
+		}
+		return deleteResult;
 	}
 	
 
