@@ -15,7 +15,7 @@
 	<h2>BoardWrite.jsp</h2>
 	<form action="boardwrite" method="post" name="writeform">
 		작성자<br> 
-		<input type="text" name="bwriter" id="bwriter"><br>
+		<input type="text" name="bwriter" id="bwriter" value="${sessionScope.loginId}"><br>
 		<!-- 비밀번호<br> 
 		<input type="text" name="bpassword" id="bpassword"><br> -->
 		제목<br> 

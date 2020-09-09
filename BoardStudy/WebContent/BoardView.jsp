@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +32,11 @@
 		첨부파일  : <img src="UploadFile/${boardView.bfilename}" width="200" hight="200"><br> 
 		<button onclick = "insert()">글쓰기</button>
 		<button onclick = "move()">목록보기</button>
+		<c:if test="${sessionScope.loginId eq boardView.bwriter }">
 		<button onclick = "update()">수정</button>
+		</c:if>
+		<c:if test="${sessionScope.loginId eq boardView.bwriter || sessionScope.loginId eq 'admin' }">
 		<button onclick = "boarddelete()">삭제하기</button>
+		</c:if>
 </body>
 </html>

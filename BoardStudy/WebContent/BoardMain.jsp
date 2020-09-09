@@ -6,17 +6,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script>
+<script language="javascript">
 function search(){
 	var keyword = document.getElementById("keyword").value;
 	location.href="boardsearch?keyword="+keyword;
 }
+function showPopup() { 
+	window.open("boardpopup?mid=${sessionScope.loginId}", "a", "width=400, height=300, left=100, top=50"); 
+	}
 </script>
 </head>
 <body>
 <h2>BoardMain.jsp</h2>
 <h2>메인페이지 입니다 :)</h2>
-	${sessionScope.loginId} 님 환영합니다. <br>
+
+	<a href="" onclick="showPopup();">${sessionScope.loginId}</a> 님 환영합니다. <br>
 	
 <%-- 	<c:if test="${sessionScope.loginId eq 'admin' }">
 	<h4>관리자이십니다 :)</h4>

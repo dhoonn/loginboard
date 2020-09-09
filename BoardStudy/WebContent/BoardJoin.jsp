@@ -21,7 +21,7 @@
      }
  }
  function idCheck(){
-	 var exp = /^[a-z]+[a-z0-9]{5,19}$/g;
+	 var exp = /^[a-z]+[a-z0-9]{4,19}$/g;
      var id = document.getElementById("mid").value;
      if (id.match(exp)) {
     	 alert('완료되었습니다.');
@@ -29,7 +29,7 @@
 	    	 alert('아이디를 입력하세요');
 	    	 
 	 	 }else {
-	    	 alert('아이디를 6~20자로 입력하세요');
+	    	 alert('아이디를 5~20자로 입력하세요');
 	 	 }
      }
  function phoneCheck() {
